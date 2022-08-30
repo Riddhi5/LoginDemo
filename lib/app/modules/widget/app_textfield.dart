@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_demo/app/utils/app_colors.dart';
+import 'package:login_demo/app/constants/app_colors.dart';
 
 
 class AppTextField extends StatefulWidget {
@@ -14,6 +14,7 @@ class AppTextField extends StatefulWidget {
     this.postIconBtn,
     this.isObscure = false,
     this.onTap,
+    this.onChanged,
     this.onEditingComplete,
     required Function(String value) validator,
   }) : _validator = validator,
@@ -28,12 +29,12 @@ class AppTextField extends StatefulWidget {
   final GestureTapCallback? onTap;
   final VoidCallback? onEditingComplete;
   final Function(String) _validator;
+  final ValueChanged<String>? onChanged;
   @override
   State<AppTextField> createState() => _AppTextFieldState();
 }
 
 class _AppTextFieldState extends State<AppTextField> {
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,31 +48,32 @@ class _AppTextFieldState extends State<AppTextField> {
         textInputAction: widget.inputAction,
         keyboardType: widget.keyboardType,
         onTap: widget.onTap,
+        onChanged: widget.onChanged,
         onEditingComplete: widget.onEditingComplete,
         decoration: InputDecoration(
           suffixIcon: widget.postIconBtn,
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(6)),
-            borderSide: BorderSide(color: AppColors.PRIMARY_COLOR),
+            borderSide: BorderSide(color: AppColors.primaryColor),
           ),
           errorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(6)),
-            borderSide: BorderSide(color: Colors.red),
+            borderSide: BorderSide(color: AppColors.errorColor),
           ),
           focusedErrorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(6)),
-            borderSide: BorderSide(color: Colors.red),
+            borderSide: BorderSide(color: AppColors.errorColor),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
             borderSide: const BorderSide(
-              color: Colors.yellow,
+              color: AppColors.iconColor,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6.0),
             borderSide: const BorderSide(
-              color: AppColors.ICON_COLOR,
+              color: AppColors.iconColor,
             ),
           ),
           border: OutlineInputBorder(
@@ -79,12 +81,9 @@ class _AppTextFieldState extends State<AppTextField> {
           ),
           labelText: widget.labelText,
           labelStyle: const TextStyle(
-            color: AppColors.TEXT_COLOR,
+            color: AppColors.textColor,
           ),
           errorStyle: const TextStyle(color: Color(0xFFCC2E36)),
-          helperStyle: const TextStyle(
-            color: Color(0xFF2BACE2),
-          ),
         ),
       ),
     );

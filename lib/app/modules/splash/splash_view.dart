@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:login_demo/app/constants/language_constant.dart';
+import 'package:login_demo/app/constants/app_images.dart';
+import '../../constants/app_colors.dart';
 import 'splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
@@ -12,51 +13,49 @@ class SplashView extends GetView<SplashController> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration:  BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/Background.png"),
+                image: AssetImage(AppImages.backgroundImage),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Column(
             children: [
-           SizedBox(
+           const SizedBox(
              height: 150,
            ),
               Container(
                 height: MediaQuery.of(context).size.height/2,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration:  BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/Logo.png"),
+                      image: AssetImage(AppImages.appLogo),
                     )
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 80,
               ),
-              Container(
-                child: Column(
-                  children: [
-                    Text(
-                      "Where brands and influencers",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                          color: Colors.white),
-                      textAlign: TextAlign.justify,
-                    ),
-                    Text(
-                      "meet in real time",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                          color: Colors.white),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ],
-                ),
+              Column(
+                children: [
+                  Text(
+                    LanguageConst.brandText,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Colors.white),
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    LanguageConst.realText,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: AppColors.whiteColor),
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               )
             ],
           ),

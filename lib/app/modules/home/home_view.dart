@@ -1,7 +1,6 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_demo/app/utils/app_colors.dart';
+import 'package:login_demo/app/constants/language_constant.dart';
+import 'package:login_demo/app/constants/app_colors.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -10,16 +9,16 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.PRIMARY_COLOR,
-        title: const Text("HomePage"),
+        backgroundColor: AppColors.primaryColor,
+        title: Text(LanguageConst.homePage),
       ),
-      body: const Center(
+      body:  Center(
         child: Text(
-          "Welcomeee!",
-          style: TextStyle(
+          LanguageConst.welcome,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color: Colors.black
+            color: AppColors.blackColor
           ),
         ),
       ),

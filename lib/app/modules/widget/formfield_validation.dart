@@ -1,3 +1,5 @@
+import 'package:login_demo/app/constants/language_constant.dart';
+
 class Validation {
   static final Validation _instance = Validation._internal();
 
@@ -9,7 +11,7 @@ class Validation {
 
   String? validation(String value) {
     if (value.isEmpty) {
-      return 'Please enter email/MobileNumber';
+      return LanguageConst.emailValidationText;
     }
     return null;
   }
@@ -18,10 +20,10 @@ class Validation {
     String pattern = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$';
     RegExp regExp = RegExp(pattern);
     if (password.isEmpty) {
-      return 'Please enter mobile password';
+      return LanguageConst.passwordValidation;
     }
     else if (!regExp.hasMatch(password)) {
-      return 'Minimum eight characters, at least one letter, one number and one special character are required';
+      return LanguageConst.passwordValidationText;
     }
     return null;
   }

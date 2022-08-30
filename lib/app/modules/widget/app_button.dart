@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_demo/app/utils/app_colors.dart';
+import 'package:login_demo/app/constants/app_colors.dart';
 
 class AppSolidButton extends StatelessWidget {
   const AppSolidButton({Key? key, required this.text}) : super(key: key);
@@ -14,7 +14,7 @@ class AppSolidButton extends StatelessWidget {
         height: 50,
         width: MediaQuery.of(context).size.width/1,
         decoration: BoxDecoration(
-          color: AppColors.PRIMARY_COLOR,
+          color: AppColors.primaryColor,
           borderRadius: BorderRadius.circular(6)
         ),
         child: Center(
@@ -23,7 +23,7 @@ class AppSolidButton extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Colors.white
+              color: AppColors.whiteColor
             ),
           ),
         ),

@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_demo/app/constants/language_constant.dart';
+import 'package:login_demo/app/constants/app_images.dart';
 import 'package:login_demo/app/modules/widget/app_button.dart';
-import 'package:login_demo/app/utils/app_colors.dart';
+import 'package:login_demo/app/constants/app_colors.dart';
 import '../widget/app_textfield.dart';
-import '../widget/formfield_validation.dart';
 import 'login_controller.dart';
 
-class LoginView extends GetView<LoginController>{
+class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final loginFormKey = GlobalKey<FormState>();
-    final Validation validation = Validation();
     return GetBuilder<LoginController>(
-      init: LoginController(),
-        builder: (loginController){
+        init: LoginController(),
+        builder: (loginController) {
           return Scaffold(
             body: SingleChildScrollView(
               child: Center(
@@ -25,6 +23,9 @@ class LoginView extends GetView<LoginController>{
                   key: loginFormKey,
                   child: Column(
                     children: [
+                      SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -37,108 +38,102 @@ class LoginView extends GetView<LoginController>{
                       const SizedBox(
                         height: 60,
                       ),
-                      const Image(
-                        image: AssetImage("assets/images/Login_logo.png"),
+                      Image(
+                        image: AssetImage(AppImages.loginLogo),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
-                      const Text(
-                        "Sign In",
-                        style: TextStyle(
+                      Text(
+                        LanguageConst.signIn,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 22,
-                            color: Colors.black),
+                            color: AppColors.blackColor),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       RichText(
-                        text: const TextSpan(
-                            text: "Don’t have an account?",
-                            style: TextStyle(
+                        text: TextSpan(
+                            text: LanguageConst.account,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14,
-                                color: AppColors.TEXT_COLOR),
+                                color: AppColors.textColor),
                             children: [
                               TextSpan(
-                                text: " Sign Up",
-                                style: TextStyle(
+                                text: LanguageConst.signUp,
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14,
-                                    color: AppColors.PRIMARY_COLOR),
+                                    color: AppColors.primaryColor),
                               )
-                            ]
-                        ),
+                            ]),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
                       AppTextField(
                         keyboardType: TextInputType.emailAddress,
-                        textController: emailController,
+                        textController: loginController.emailController,
                         inputAction: TextInputAction.next,
-                        labelText: 'MobileNumber/Email',
-                        hintText: 'MobileNumber/Email',
-                        validator: validation.validation,
+                        labelText: LanguageConst.email,
+                        hintText: LanguageConst.email,
+                        validator: loginController.validation.validation,
                       ),
-                      Obx(() =>
-                          AppTextField(
-                            keyboardType: TextInputType.text,
-                            textController: passwordController,
-                            inputAction: TextInputAction.next,
-                            labelText: 'Password',
-                            hintText: 'Password',
-                            isObscure: loginController.hidePassword.value,
-                            postIconBtn: IconButton(
-                              icon: loginController.hidePassword.value
-                                  ? const Icon(
-                                Icons.visibility_off_outlined,
-                                color: AppColors.ICON_COLOR,
-                              )
-                                  : const Icon(
-                                Icons.visibility_outlined,
-                                color: AppColors.ICON_COLOR,
+                      Obx(
+                        () => Column(
+                          children: [
+                            AppTextField(
+                              keyboardType: TextInputType.text,
+                              textController:
+                                  loginController.passwordController,
+                              inputAction: TextInputAction.next,
+                              labelText: LanguageConst.password,
+                              hintText: LanguageConst.password,
+                              isObscure: loginController.hidePassword.value,
+                              postIconBtn: IconButton(
+                                icon: loginController.hidePassword.value
+                                    ? const Icon(
+                                        Icons.visibility_off_outlined,
+                                        color: AppColors.iconColor,
+                                      )
+                                    : const Icon(
+                                        Icons.visibility_outlined,
+                                        color: AppColors.iconColor,
+                                      ),
+                                onPressed: () {
+                                  loginController.hidePassword.value =
+                                      !loginController.hidePassword.value;
+                                },
                               ),
-                              onPressed: () {
-                                loginController.hidePassword.value =
-                                !loginController.hidePassword.value;
-                              },
+                              validator:
+                                  loginController.validation.passValidation,
                             ),
-                            validator: validation.passValidation,
-                          ),),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 40,
                       ),
-                      const Text(
-                        "forgot password/username?",
-                        style: TextStyle(
+                      Text(
+                        LanguageConst.forgotPassword,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
-                            color: AppColors.PRIMARY_COLOR),
+                            color: AppColors.primaryColor),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       GestureDetector(
-                        onTap: (){
-                          if(loginFormKey.currentState!.validate()){
-                            if(emailController.text.isEmail){
-                              print(emailController.text.isEmail);
-                              loginController.login(
-                                  "",
-                                  emailController.text,
-                                  passwordController.text);
-                            }else{
-                              loginController.login(
-                                  emailController.text,
-                                  "",
-                                  passwordController.text);
-                            }
+                        onTap: () {
+                          if (loginFormKey.currentState!.validate()) {
+                            loginController.login();
                           }
                         },
-                        child: const AppSolidButton(
-                            text: "SIGN IN"),
+                        child: AppSolidButton(text: LanguageConst.signIn),
                       )
                     ],
                   ),
